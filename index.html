@@ -2,240 +2,207 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Budget Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>LOVE MAIL</title>
     <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime&display=swap" rel="stylesheet">
 
     <style>
-        :root { 
-            --primary: #28a745; 
-            --accent: #007bff; 
-            --bg: #f2f4f7; 
-            --text: #333; 
-        }
+    :root { 
+        --paper: #fff9f9; /* Soft rose-white paper */
+        --ink: #4a2c2c;   /* Deep chocolate ink */
+        --accent: #d64545; /* Heart Red */
+        --border: #e8d5d5;
+    }
 
-        /* ✅ FIXED: proper mobile height handling */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg);
-        }
+    /* ... keeping previous layout styles ... */
+
+    /* UPDATED: Love Mail Stamp */
+    .letter-card::after {
+        content: "❤"; /* Heart icon instead of envelope */
+        position: absolute;
+        top: 25px;
+        right: 35px;
+        font-size: 35px;
+        color: var(--accent);
+        opacity: 0.7;
+        border: 3px double var(--accent);
+        padding: 8px;
+        border-radius: 50%;
+        transform: rotate(-15deg);
+    }
+
+    /* Softening the background */
+    body {
+        background-color: #f2e4e4;
+        background-image: url("https://www.transparenttextures.com/patterns/lined-paper-2.png");
+    }
+</style>
 
         body {
-            font-family: -apple-system, system-ui, sans-serif;
-            color: var(--text);
+            font-family: 'Courier Prime', monospace;
+            color: var(--ink);
             overflow-x: hidden;
         }
 
         #status { 
-            background: #ffc107; 
-            padding: 14px; 
+            background: var(--accent); 
+            color: white;
+            padding: 10px; 
             text-align: center; 
-            font-size: 13px; 
+            font-size: 12px; 
             font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             display: none;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        #status.synced { background: var(--primary); color: white; }
 
-        /* ✅ FIXED: fills screen without flex bugs */
         .main-wrapper {
-            padding: 15px;
-            max-width: 500px;
-            margin: 0 auto;
-            width: 100%;
-            box-sizing: border-box;
-            min-height: calc(
-                100vh 
-                - env(safe-area-inset-top) 
-                - env(safe-area-inset-bottom)
-            );
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-
-        .stat-box {
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            text-align: center;
-        }
-
-        .stat-label {
-            font-size: 11px;
-            color: #888;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .stat-val {
-            display: block;
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-top: 5px;
-        }
-
-        .card {
-            background: white;
             padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-        }
-
-        h3 {
-            margin: 0 0 15px 0;
-            font-size: 18px;
-        }
-
-        input[type="date"] {
-            border: 1px solid #eee;
-            padding: 12px;
-            border-radius: 10px;
-            width: 100%;
-            font-size: 16px;
-            margin-bottom: 15px;
+            max-width: 600px;
+            margin: 0 auto;
             box-sizing: border-box;
-            background: #fafafa;
+            min-height: 100vh;
         }
 
-        .meal-row {
+        /* The Letter Canvas */
+        .letter-card {
+            background: var(--paper);
+            padding: 40px 30px;
+            border-radius: 2px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2), 
+                        inset 0 0 50px rgba(0,0,0,0.05);
+            position: relative;
+            border: 1px solid var(--border);
+            min-height: 500px;
+        }
+
+        /* Retro Stamp Decor */
+        .letter-card::after {
+            content: "✉";
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: var(--accent);
+            opacity: 0.6;
+            border: 2px solid var(--accent);
+            padding: 5px 10px;
+            transform: rotate(10deg);
+        }
+
+        .header-fields {
+            margin-bottom: 30px;
+        }
+
+        .field-row {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f9f9f9;
+            align-items: baseline;
+            margin-bottom: 10px;
+            border-bottom: 1px dotted #ccc;
         }
 
-        .meal-row label {
-            font-weight: 600;
-            color: #555;
+        .field-row label {
+            font-family: 'Special Elite', cursive;
+            font-size: 14px;
+            width: 60px;
+            color: #777;
         }
 
-        .meal-row input {
-            width: 40%;
-            padding: 10px;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            text-align: right;
-            font-size: 16px;
+        input, textarea {
+            background: transparent;
+            border: none;
+            font-family: 'Courier Prime', monospace;
+            font-size: 18px;
+            color: var(--ink);
             outline: none;
+            width: 100%;
         }
 
-        .day-total-box {
-            margin-top: 15px;
-            text-align: right;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
+        textarea {
+            line-height: 1.6;
+            resize: none;
+            min-height: 300px;
         }
 
-        .day-total-box b {
-            font-size: 22px;
+        .date-input {
+            font-family: 'Special Elite', cursive;
+            font-size: 14px;
+            margin-bottom: 20px;
+            border: none;
+            background: transparent;
+            color: var(--accent);
         }
 
         .actions {
-            padding: 10px 0 30px 0;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-bottom: 50px;
         }
 
         .btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            padding: 15px;
+            border: 1px solid var(--ink);
+            background: transparent;
+            font-family: 'Special Elite', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .btn-blue {
-            background: var(--accent);
-            color: white;
+        .btn-main {
+            background: var(--ink);
+            color: var(--paper);
         }
 
-        .btn-outline {
-            background: #fff;
-            border: 1px solid #ddd;
-            color: #666;
+        .btn:active {
+            transform: translateY(2px);
         }
     </style>
 </head>
 
 <body>
 
-<div id="status" onclick="verifyAndLinkFile()">📂 Found your file. Tap to Verify & Sync.</div>
+<div id="status" onclick="verifyAndLinkFile()">📜 Archives Found. Tap to Link Scroll.</div>
 
 <div class="main-wrapper">
+    
+    <input type="date" id="datePicker" class="date-input" onchange="renderLetter()">
 
-    <div class="stats-grid">
-        <div class="stat-box">
-            <span class="stat-label">Month Total</span>
-            <span class="stat-val" id="monthTotal">Rs: 0</span>
-        </div>
-        <div class="stat-box">
-            <span class="stat-label">Daily Avg</span>
-            <span class="stat-val" id="dailyAvg">Rs: 0</span>
-        </div>
-    </div>
-
-    <div class="card">
-        <h3>Daily Tracker</h3>
-        <input type="date" id="datePicker" onchange="renderDay()">
-
-        <div class="meal-row">
-            <label>Breakfast</label>
-            <input type="number" id="meal_b" placeholder="0" onchange="updateDaily()">
-        </div>
-        <div class="meal-row">
-            <label>Lunch</label>
-            <input type="number" id="meal_l" placeholder="0" onchange="updateDaily()">
-        </div>
-        <div class="meal-row">
-            <label>Dinner</label>
-            <input type="number" id="meal_d" placeholder="0" onchange="updateDaily()">
-        </div>
-        <div class="meal-row">
-            <label>Other</label>
-            <input type="number" id="meal_o" placeholder="0" onchange="updateDaily()">
+    <div class="letter-card">
+        <div class="header-fields">
+            <div class="field-row">
+                <label>FROM:</label>
+                <input type="text" id="from_name" placeholder="..." onchange="updateLetter()">
+            </div>
+            <div class="field-row">
+                <label>TO:</label>
+                <input type="text" id="to_name" placeholder="..." onchange="updateLetter()">
+            </div>
         </div>
 
-        <div class="day-total-box">
-            <small style="color:#999;font-weight:bold;">Day Total</small><br>
-            <b>Rs: <span id="dayTotal">0</span></b>
-        </div>
+        <textarea id="letter_body" placeholder="Write your story..." oninput="updateLetter()"></textarea>
     </div>
 
     <div class="actions">
-        <button class="btn btn-blue" onclick="saveToFile()">💾 Sync to Phone (.txt)</button>
-        <button class="btn btn-outline" onclick="verifyAndLinkFile()">📂 Link Existing File</button>
+        <button class="btn btn-main" onclick="saveToFile()">💾 Seal & Save to Device</button>
+        <button class="btn" onclick="verifyAndLinkFile()">📂 Open Old Archives</button>
     </div>
 
 </div>
 
 <script>
-    let budgetData = JSON.parse(localStorage.getItem('budgetData')) || {};
+    let letterData = JSON.parse(localStorage.getItem('letterData')) || {};
     let fileHandle;
 
     window.onload = async () => {
-        document.getElementById('datePicker').value =
-            new Date().toISOString().split('T')[0];
-
+        document.getElementById('datePicker').value = new Date().toISOString().split('T')[0];
         fileHandle = await getFileFromDB();
         if (fileHandle) document.getElementById('status').style.display = 'block';
-        refreshUI();
+        renderLetter();
     };
 
     async function verifyAndLinkFile() {
@@ -247,92 +214,65 @@
             if (await fileHandle.requestPermission({ mode: 'readwrite' }) === 'granted') {
                 const file = await fileHandle.getFile();
                 const content = await file.text();
-                if (content) budgetData = JSON.parse(content);
-                localStorage.setItem('budgetData', JSON.stringify(budgetData));
+                if (content) letterData = JSON.parse(content);
+                localStorage.setItem('letterData', JSON.stringify(letterData));
 
                 const s = document.getElementById('status');
-                s.innerText = "✅ File Connected";
-                s.classList.add('synced');
+                s.innerText = "✨ Inkwell Connected";
                 setTimeout(() => s.style.display = 'none', 2000);
-
-                refreshUI();
+                renderLetter();
             }
         } catch (e) { console.error(e); }
     }
 
-    function updateDaily() {
+    function updateLetter() {
         const date = datePicker.value;
-        budgetData[date] = {
-            b: +meal_b.value || 0,
-            l: +meal_l.value || 0,
-            d: +meal_d.value || 0,
-            o: +meal_o.value || 0
+        letterData[date] = {
+            f: from_name.value,
+            t: to_name.value,
+            b: letter_body.value
         };
-        localStorage.setItem('budgetData', JSON.stringify(budgetData));
+        localStorage.setItem('letterData', JSON.stringify(letterData));
         autoSaveToFile();
-        refreshUI();
     }
 
-    function renderDay() {
-        const d = budgetData[datePicker.value] || {b:0,l:0,d:0,o:0};
-        meal_b.value = d.b || "";
-        meal_l.value = d.l || "";
-        meal_d.value = d.d || "";
-        meal_o.value = d.o || "";
-        dayTotal.innerText = (d.b + d.l + d.d + d.o).toFixed(2);
+    function renderLetter() {
+        const d = letterData[datePicker.value] || {f:"", t:"", b:""};
+        from_name.value = d.f || "";
+        to_name.value = d.t || "";
+        letter_body.value = d.b || "";
     }
-
-    function calculateStats() {
-        const now = new Date();
-        let total = 0, days = 0;
-
-        for (let k in budgetData) {
-            const d = new Date(k);
-            if (d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()) {
-                const s = budgetData[k];
-                const sum = s.b + s.l + s.d + s.o;
-                if (sum > 0) { total += sum; days++; }
-            }
-        }
-        monthTotal.innerText = `Rs: ${total.toFixed(0)}`;
-        dailyAvg.innerText = `Rs: ${(days ? total/days : 0).toFixed(0)}`;
-    }
-
-    function refreshUI() { renderDay(); calculateStats(); }
 
     async function autoSaveToFile() {
         if (!fileHandle) return;
         try {
             const w = await fileHandle.createWritable();
-            await w.write(JSON.stringify(budgetData));
+            await w.write(JSON.stringify(letterData));
             await w.close();
         } catch {}
     }
 
     async function saveToFile() {
         if (!fileHandle) {
-            fileHandle = await window.showSaveFilePicker({ suggestedName: 'budget.txt' });
+            fileHandle = await window.showSaveFilePicker({ suggestedName: 'my_letters.txt' });
             await saveFileToDB(fileHandle);
         }
         autoSaveToFile();
-        alert("Success: Synced with your file!");
+        alert("The letter has been sealed and stored.");
     }
 
     function saveFileToDB(handle) {
-        const r = indexedDB.open("FileStorage", 1);
+        const r = indexedDB.open("LetterStorage", 1);
         r.onupgradeneeded = e => e.target.result.createObjectStore("handles");
-        r.onsuccess = e =>
-            e.target.result.transaction("handles", "readwrite")
-            .objectStore("handles").put(handle, "currentFile");
+        r.onsuccess = e => e.target.result.transaction("handles", "readwrite").objectStore("handles").put(handle, "currentFile");
     }
 
     function getFileFromDB() {
         return new Promise(res => {
-            const r = indexedDB.open("FileStorage", 1);
+            const r = indexedDB.open("LetterStorage", 1);
             r.onupgradeneeded = e => e.target.result.createObjectStore("handles");
             r.onsuccess = e => {
-                const g = e.target.result.transaction("handles")
-                    .objectStore("handles").get("currentFile");
+                const g = e.target.result.transaction("handles").objectStore("handles").get("currentFile");
                 g.onsuccess = () => res(g.result);
             };
         });
