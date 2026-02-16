@@ -8,36 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime&display=swap" rel="stylesheet">
 
     <style>
-    :root { 
-        --paper: #fff9f9; /* Soft rose-white paper */
-        --ink: #4a2c2c;   /* Deep chocolate ink */
-        --accent: #d64545; /* Heart Red */
-        --border: #e8d5d5;
-    }
+        :root { 
+            --paper: #f4ecd8; 
+            --ink: #2c2c2c; 
+            --accent: #a63d40; /* Wax seal red */
+            --border: #d4c5a9;
+        }
 
-    /* ... keeping previous layout styles ... */
-
-    /* UPDATED: Love Mail Stamp */
-    .letter-card::after {
-        content: "❤"; /* Heart icon instead of envelope */
-        position: absolute;
-        top: 25px;
-        right: 35px;
-        font-size: 35px;
-        color: var(--accent);
-        opacity: 0.7;
-        border: 3px double var(--accent);
-        padding: 8px;
-        border-radius: 50%;
-        transform: rotate(-15deg);
-    }
-
-    /* Softening the background */
-    body {
-        background-color: #f2e4e4;
-        background-image: url("https://www.transparenttextures.com/patterns/lined-paper-2.png");
-    }
-</style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #e5d3b3;
+            background-image: url("https://www.transparenttextures.com/patterns/aged-paper.png");
+        }
 
         body {
             font-family: 'Courier Prime', monospace;
